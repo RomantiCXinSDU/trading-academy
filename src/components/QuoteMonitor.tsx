@@ -483,60 +483,6 @@ function nextMinuteTick(series: MinutePoint[], marketType: MarketType, symbol: s
   return enrichSeries(raw, prevClose)
 }
 
-function _CandlestickLayer(props: any) {
-  const { points, xAxisMap, yAxisMap } = props
-  const data: CandlePoint[] = points ?? []
-  const xAxis = (Object.values(xAxisMap ?? {})[0] as any) ?? null
-  const yAxisCandidates = Object.values(yAxisMap ?? {}) as any[]
-  const yAxis =
-    yAxisCandidates.find((axis) => axis?.yAxisId === 'left') ??
-    yAxisCandidates.find((axis) => axis?.orientation !== 'right') ??
-    yAxisCandidates[0] ??
-    null
-  if (!xAxis || !yAxis || !data.length) return null
-  const xScale = xAxis.scale
-  const yScale = yAxis.scale
-  if (typeof yScale !== 'function') return null
-  const bandwidth = typeof xAxis.bandwidth === 'function' ? xAxis.bandwidth() : Math.max(4, (xAxis.width ?? 600) / Math.max(1, data.length))
-  const candleWidth = Math.max(2, bandwidth * 0.7)
-
-  return (
-    <g>
-      {data.map((d, idx) => {
-        const scaled = typeof xScale === 'function' ? xScale(d.time) : null
-        const xCenter =
-          typeof scaled === 'number'
-            ? scaled + bandwidth / 2
-            : (xAxis.x ?? 0) + ((idx + 0.5) * (xAxis.width ?? 600)) / Math.max(1, data.length)
-        const yOpen = yScale(d.open)
-        const yClose = yScale(d.close)
-        const yHigh = yScale(d.high)
-        const yLow = yScale(d.low)
-        if (![xCenter, yOpen, yClose, yHigh, yLow].every((v) => Number.isFinite(v))) return null
-        const isUp = d.close > d.open
-        const isDown = d.close < d.open
-        const color = isUp ? riseColor : isDown ? fallColor : flatColor
-        const top = Math.min(yOpen, yClose)
-        const height = Math.max(1, Math.abs(yOpen - yClose))
-        return (
-          <g key={`candle-${d.unix}`}>
-            <line x1={xCenter} y1={yHigh} x2={xCenter} y2={yLow} stroke={color} strokeWidth={1.2} />
-            <rect
-              x={xCenter - candleWidth / 2}
-              y={top}
-              width={candleWidth}
-              height={height}
-              fill={isDown ? color : isUp ? '#050505' : color}
-              stroke={color}
-              strokeWidth={1.2}
-            />
-          </g>
-        )
-      })}
-    </g>
-  )
-}
-
 function SimpleCandleSvg({
   data,
   prevClose,

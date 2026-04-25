@@ -136,7 +136,7 @@ export default function Home() {
         <section className="relative overflow-hidden">
           <video
             className="absolute inset-0 h-full w-full object-cover opacity-35"
-            src="/videos/hero-fluid.mp4"
+            src={import.meta.env.BASE_URL + 'videos/hero-fluid.mp4'}
             autoPlay
             muted
             loop
@@ -193,7 +193,7 @@ export default function Home() {
         <section className="relative overflow-hidden border-y border-white/10">
           <video
             className="absolute inset-0 h-full w-full object-cover opacity-20"
-            src="/videos/grid-terrain.mp4"
+            src={import.meta.env.BASE_URL + 'videos/grid-terrain.mp4'}
             autoPlay
             muted
             loop

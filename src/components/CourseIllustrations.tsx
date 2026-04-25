@@ -87,7 +87,6 @@ export function SpecialCandles({ className }: { className?: string }) {
         const isDoji = i === 0
         const isHammer = i === 1
         const isShooter = i === 2
-        const isFull = i === 3
 
         const bodyH = isDoji ? 4 : 22
         const bodyTop = isDoji ? top + 75 : isHammer ? top + 45 : isShooter ? top + 25 : top + 30

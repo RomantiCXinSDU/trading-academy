@@ -5,7 +5,6 @@ import {
   CartesianGrid,
   Cell,
   ComposedChart,
-  Customized,
   Line,
   ReferenceLine,
   ResponsiveContainer,
@@ -484,7 +483,7 @@ function nextMinuteTick(series: MinutePoint[], marketType: MarketType, symbol: s
   return enrichSeries(raw, prevClose)
 }
 
-function CandlestickLayer(props: any) {
+function _CandlestickLayer(props: any) {
   const { points, xAxisMap, yAxisMap } = props
   const data: CandlePoint[] = points ?? []
   const xAxis = (Object.values(xAxisMap ?? {})[0] as any) ?? null

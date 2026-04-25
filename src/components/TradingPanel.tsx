@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { X, Plus, Minus, TrendingUp, Wallet, Clock, RotateCcw } from 'lucide-react'
-import { useTrading, type TradePrefill } from '../contexts/TradingContext'
+import { X, Plus, Minus, TrendingUp, Wallet, RotateCcw } from 'lucide-react'
+import { useTrading } from '../contexts/TradingContext'
 
 type Tab = 'trade' | 'positions' | 'orders'
 

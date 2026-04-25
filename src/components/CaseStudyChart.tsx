@@ -197,7 +197,7 @@ function priceToY(price: number, minP: number, maxP: number, h: number, pad: num
 
 export default function CaseStudyChart(props: Props) {
   const { indicatorKey, entryIndex, stopIndex, width = 800, height = 420 } = props
-  const { data, basePrice } = useMemo(() => generateData(props), [indicatorKey, entryIndex, stopIndex])
+  const { data } = useMemo(() => generateData(props), [indicatorKey, entryIndex, stopIndex])
 
   const pad = { top: 24, right: 60, bottom: 28, left: 56 }
   const innerW = width - pad.left - pad.right
@@ -234,7 +234,6 @@ export default function CaseStudyChart(props: Props) {
   const macdZeroY = macdY(0)
 
   /* RSI sub-chart */
-  const rsiData = data.map(d => d.rsi14 ?? 50)
   const rsiH = hasRsi ? 80 : 0
   const rsiY = (v: number) => height - pad.bottom - rsiH + ((100 - v) / 100) * rsiH
   const rsiOverY = rsiY(70)
@@ -243,8 +242,6 @@ export default function CaseStudyChart(props: Props) {
   /* volume sub-chart */
   const volH = showVol ? 80 : 0
   const maxVol = Math.max(...data.map(d => d.volume), 1) * 1.1
-  const volY = (v: number) => height - pad.bottom - volH + ((maxVol - v) / maxVol) * volH
-
   /* grid config */
   const yTicks = 5
 
